@@ -1,5 +1,5 @@
 /*
- $Id: Unicode.xs,v 1.4 2002/04/26 03:02:04 dankogai Exp $
+ $Id: Unicode.xs,v 1.5 2002/05/20 15:25:44 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -212,7 +212,7 @@ CODE:
 	    if (!issurrogate(ord)){
 		if (ucs2) {
 		    if (check) {
-			croak("%s:code point \"\\x{"UVxf"}\" too high",
+			croak("%s:code point \"\\x{%"UVxf"}\" too high",
 			      SvPV_nolen(
 				  *hv_fetch((HV *)SvRV(obj),"Name",4,0))
 			      ,ord);

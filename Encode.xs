@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.45 2002/05/07 16:22:42 dankogai Exp dankogai $
+ $Id: Encode.xs,v 1.46 2002/05/20 15:25:44 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -80,7 +80,7 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 	goto ENCODE_END;
     }
 
-    while (code = do_encode(dir, s, &slen, d, dlen, &dlen, !check))
+    while( (code = do_encode(dir, s, &slen, d, dlen, &dlen, !check)) )
     {
 	SvCUR_set(dst, dlen+ddone);
 	SvPOK_only(dst);
@@ -106,7 +106,7 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 		more = (1.0*tlen*SvLEN(dst)+sdone-1)/sdone
 		    - SvLEN(dst);
 #elif ENCODE_XS_USEFP
-		more = (1.0*SvLEN(dst)+1)/sdone * sleft;
+		more = (STRLEN)((1.0*SvLEN(dst)+1)/sdone * sleft);
 #else
 		/* safe until SvLEN(dst) == MAX_INT/16 */
 		more = (16*SvLEN(dst)+1)/sdone/16 * sleft;
@@ -172,14 +172,14 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 	    else {
 		if (check & ENCODE_DIE_ON_ERR){
 		    Perl_croak(aTHX_ ERR_DECODE_NOMAP,
-                              PTR2UV(enc->name[0]), (U8)s[slen]);
+                              enc->name[0], (UV)s[slen]);
 		    return &PL_sv_undef; /* never reaches but be safe */
 		}
 		if (check & ENCODE_WARN_ON_ERR){
 		    Perl_warner(
 			aTHX_ packWARN(WARN_UTF8),
 			ERR_DECODE_NOMAP,
-                       PTR2UV(enc->name[0]), (U8)s[slen]);
+               	        enc->name[0], (UV)s[slen]);
 		}
 		if (check & ENCODE_RETURN_ON_ERR){
 		    goto ENCODE_SET_SRC;
@@ -283,7 +283,7 @@ Method_needs_lines(obj)
 SV *	obj
 CODE:
 {
-    encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
+    /* encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj))); */
     ST(0) = &PL_sv_no;
     XSRETURN(1);
 }
@@ -293,7 +293,7 @@ Method_perlio_ok(obj)
 SV *	obj
 CODE:
 {
-    encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
+    /* encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj))); */
     /* require_pv(PERLIO_FILENAME); */
 
     eval_pv("require PerlIO::encoding", 0);
