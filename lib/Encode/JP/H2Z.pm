@@ -1,12 +1,12 @@
 #
-# $Id: H2Z.pm,v 1.0 2002/03/28 23:26:28 dankogai Exp $
+# $Id: H2Z.pm,v 1.0 2002/03/28 23:26:28 dankogai Exp dankogai $
 #
 
 package Encode::JP::H2Z;
 
 use strict;
 
-our $RCSID = q$Id: H2Z.pm,v 1.0 2002/03/28 23:26:28 dankogai Exp $;
+our $RCSID = q$Id: H2Z.pm,v 1.0 2002/03/28 23:26:28 dankogai Exp dankogai $;
 our $VERSION = do { my @r = (q$Revision: 1.0 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 
 use Carp;
