@@ -1,9 +1,15 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 1.79 2002/10/21 06:05:37 dankogai Exp dankogai $
+# $Id: Changes,v 1.80 2002/10/21 20:39:09 dankogai Exp dankogai $
 #
 
-$Revision: 1.79 $ $Date: 2002/10/21 06:05:37 $
+$Revision: 1.80 $ $Date: 2002/10/21 20:39:09 $
+! Encode.xs t/mime-header.t
+  Even more patches from NI-XS regarding Encode::utf8->decode().
+  And one more test to t/mime-header.t to prove it
+  Message-Id: <E183i0Y-0003mo-00@mserv1c.vianw.co.uk>
+
+1.79 2002/10/21 06:05:37
 ! Encode.xs
   Further patches from NI-XS.  Encode::utf8->decode() now checks the
   value of utf8 flag of the argument.  As a result, the fix to
@@ -768,7 +774,7 @@ $Revision: 1.79 $ $Date: 2002/10/21 06:05:37 $
   Typo fixes and improvements by jhi
   Message-Id: <200204010201.FAA03564@alpha.hut.fi>, et al.
 
-1.11  $Date: 2002/10/21 06:05:37 $
+1.11  $Date: 2002/10/21 20:39:09 $
 + t/encoding.t
 + t/jperl.t
 ! MANIFEST

@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.48 2002/10/20 18:28:34 dankogai Exp $
+ $Id: Encode.xs,v 1.49 2002/10/21 19:47:47 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -388,6 +388,9 @@ int	check
 CODE:
 {
     encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
+    if (SvUTF8(src)) {
+    	sv_utf8_downgrade(src, FALSE);
+    }
     ST(0) = encode_method(aTHX_ enc, enc->t_utf8, src, check);
     SvUTF8_on(ST(0));
     XSRETURN(1);
