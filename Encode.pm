@@ -1,9 +1,9 @@
 #
-# $Id: Encode.pm,v 2.5 2004/10/19 04:54:43 dankogai Exp $
+# $Id: Encode.pm,v 2.6 2004/10/22 06:23:11 dankogai Exp dankogai $
 #
 package Encode;
 use strict;
-our $VERSION = do { my @r = (q$Revision: 2.5 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 2.6 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 sub DEBUG () { 0 }
 use XSLoader ();
 XSLoader::load(__PACKAGE__, $VERSION);
@@ -140,6 +140,7 @@ sub encode($$;$)
 {
     my ($name, $string, $check) = @_;
     return undef unless defined $string;
+    return undef if ref $string;
     $check ||=0;
     my $enc = find_encoding($name);
     unless(defined $enc){
@@ -155,6 +156,7 @@ sub decode($$;$)
 {
     my ($name,$octets,$check) = @_;
     return undef unless defined $octets;
+    return undef if ref $octets;
     $check ||=0;
     my $enc = find_encoding($name);
     unless(defined $enc){
@@ -429,7 +431,8 @@ decode($valid_encoding, '') is harmless and warnless.
 
 Converts B<in-place> data between two encodings. The data in $octets
 must be encoded as octets and not as characters in Perl's internal
-format. For example, to convert ISO-8859-1 data to Microsoft's CP1250 encoding:
+format. For example, to convert ISO-8859-1 data to Microsoft's CP1250
+encoding:
 
   from_to($octets, "iso-8859-1", "cp1250");
 
@@ -440,8 +443,8 @@ and to convert it back:
 Note that because the conversion happens in place, the data to be
 converted cannot be a string constant; it must be a scalar variable.
 
-from_to() returns the length of the converted string in octets on success, undef
-otherwise.
+from_to() returns the length of the converted string in octets on
+success, I<undef> on error.
 
 B<CAVEAT>: The following operations look the same but are not quite so;
 
@@ -555,9 +558,12 @@ except for hz and ISO-2022-kr.  For gory details, see L<Encode::Encoding> and L<
 
 =head1 Handling Malformed Data
 
-The I<CHECK> argument is used as follows.  When you omit it,
-the behaviour is the same as if you had passed a value of 0 for
-I<CHECK>.
+The optional I<CHECK> argument is used as follows.  When you omit it,
+Encode::FB_DEFAULT is assumed.
+
+B<Note:> Not all encoding suppport this feature.  Some encodings
+ignore I<CHECK> argument.  For example, L<Encode::Unicode> ignores
+I<CHECK> and it always croaks on error.
 
 =over 2
 
