@@ -1,5 +1,5 @@
 #
-# $Id: cp949.ucm,v 1.21 2002/10/20 15:44:00 dankogai Exp dankogai $
+# $Id: cp949.ucm,v 1.22 2002/10/21 06:05:37 dankogai Exp dankogai $
 #
 # Original table can be obtained at
 # http://www.microsoft.com/typography/unicode/949.txt
@@ -144,6 +144,7 @@ CHARMAP
 <U00A8> \xA1\xA7 |0 # DIAERESIS
 <U00AA> \xA8\xA3 |0 # FEMININE ORDINAL INDICATOR
 <U00AD> \xA1\xA9 |0 # SOFT HYPHEN
+<U00AE> \xA2\xE7 |0 # REGISTERED SIGN
 <U00B0> \xA1\xC6 |0 # DEGREE SIGN
 <U00B1> \xA1\xBE |0 # PLUS-MINUS SIGN
 <U00B2> \xA9\xF7 |0 # SUPERSCRIPT TWO
@@ -327,6 +328,7 @@ CHARMAP
 <U2082> \xA9\xFC |0 # SUBSCRIPT TWO
 <U2083> \xA9\xFD |0 # SUBSCRIPT THREE
 <U2084> \xA9\xFE |0 # SUBSCRIPT FOUR
+<U20AC> \xA2\xE6 |0 # EURO SIGN
 <U2103> \xA1\xC9 |0 # DEGREE CELSIUS
 <U2109> \xA2\xB5 |0 # DEGREE FAHRENHEIT
 <U2113> \xA7\xA4 |0 # SCRIPT SMALL L

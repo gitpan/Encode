@@ -1,9 +1,24 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 1.78 2002/10/20 15:44:00 dankogai Exp dankogai $
+# $Id: Changes,v 1.79 2002/10/21 06:05:37 dankogai Exp dankogai $
 #
 
-$Revision: 1.78 $ $Date: 2002/10/20 15:44:00 $
+$Revision: 1.79 $ $Date: 2002/10/21 06:05:37 $
+! Encode.xs
+  Further patches from NI-XS.  Encode::utf8->decode() now checks the
+  value of utf8 flag of the argument.  As a result, the fix to
+  lib/Encode/MIME/Header.pm is no longer neccessary but since it did
+  no harm (even speedwise) I'll leave it unreverted.
+! ucm/cp949.ucm ucm/cp950.ucm
+  U+20AC EURO SIGN
+  U+00AE REGISTERED SIGN
+  were missing as a result of 1.78. Discovered by Moriyama-san.
+  Moriyama-san has also developed a test script that compares
+  (en|de)coded results to the corresponding Win32 API result and
+  all cp9?? maps are now verified.
+  Message-Id: <20021021025220.3AED.MSYK@mtg.biglobe.ne.jp>
+
+1.78 2002/10/20 15:44:00
 ! lib/Encode/MIME/Header.pm
   fixed so that it works with new Encode::utf8
 ! Encode.pm Encode.xs
@@ -753,7 +768,7 @@ $Revision: 1.78 $ $Date: 2002/10/20 15:44:00 $
   Typo fixes and improvements by jhi
   Message-Id: <200204010201.FAA03564@alpha.hut.fi>, et al.
 
-1.11  $Date: 2002/10/20 15:44:00 $
+1.11  $Date: 2002/10/21 06:05:37 $
 + t/encoding.t
 + t/jperl.t
 ! MANIFEST

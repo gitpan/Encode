@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.46 2002/05/20 15:25:44 dankogai Exp dankogai $
+ $Id: Encode.xs,v 1.48 2002/10/20 18:28:34 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -253,6 +253,17 @@ CODE:
     SV *dst = newSV(slen);
     SvPOK_only(dst);
     SvCUR_set(dst,0);
+    if (SvUTF8(src)) {
+	s = utf8_to_bytes(s,&slen);
+	if (s) {
+	    SvCUR_set(src,slen);
+	    SvUTF8_off(src);
+	    e = s+slen;
+	}
+	else {
+	    croak("Cannot decode string with wide characters");
+	}
+    }
     while (s < e) {
     	if (UTF8_IS_INVARIANT(*s) || UTF8_IS_START(*s)) {
 	    U8 skip = UTF8SKIP(s);

@@ -1,5 +1,5 @@
 #
-# $Id: cp950.ucm,v 1.21 2002/10/20 15:44:00 dankogai Exp dankogai $
+# $Id: cp950.ucm,v 1.22 2002/10/21 06:05:37 dankogai Exp dankogai $
 #
 # Original table can be obtained at
 # http://www.microsoft.com/typography/unicode/950.txt
@@ -211,6 +211,7 @@ CHARMAP
 <U2032> \xA1\xAC |0 # PRIME
 <U2035> \xA1\xAB |0 # REVERSED PRIME
 <U203B> \xA1\xB0 |0 # REFERENCE MARK
+<U20AC> \xA3\xE1 |0 # EURO SIGN
 <U2103> \xA2\x4A |0 # DEGREE CELSIUS
 <U2105> \xA1\xC1 |0 # CARE OF
 <U2109> \xA2\x4B |0 # DEGREE FAHRENHEIT
