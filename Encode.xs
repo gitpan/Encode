@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.51 2002/11/14 23:06:12 dankogai Exp dankogai $
+ $Id: Encode.xs,v 1.52 2002/11/18 17:28:49 dankogai Exp dankogai $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -250,7 +250,7 @@ CODE:
     STRLEN slen;
     U8 *s = (U8 *) SvPV(src, slen);
     U8 *e = (U8 *) SvEND(src);
-    SV *dst = newSV(slen);
+    SV *dst = newSV(slen>0?slen:1); /* newSV() abhors 0 -- inaba */
     SvPOK_only(dst);
     SvCUR_set(dst,0);
     if (SvUTF8(src)) {
@@ -330,7 +330,7 @@ CODE:
     STRLEN slen;
     U8 *s = (U8 *) SvPV(src, slen);
     U8 *e = (U8 *) SvEND(src);
-    SV *dst = newSV(slen);
+    SV *dst = newSV(slen>0?slen:1); /* newSV() abhors 0 -- inaba */
     if (SvUTF8(src)) {
         /* Already encoded - trust it and just copy the octets */
     	sv_setpvn(dst,(char *)s,(e-s));
