@@ -1,5 +1,5 @@
 package encoding;
-our $VERSION = do { my @r = (q$Revision: 1.39 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 1.40 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 
 use Encode;
 use strict;
@@ -31,8 +31,9 @@ sub import {
 	require Carp;
 	Carp::croak("Unknown encoding '$name'");
     }
+    $name = $enc->name; # canonize
     unless ($arg{Filter}) {
-	$utfs{$name} or ${^ENCODING} = $enc;
+	${^ENCODING} = $enc unless $] <= 5.008 and $utfs{$name};
 	$HAS_PERLIO or return 1;
 	for my $h (qw(STDIN STDOUT)){
 	    if ($arg{$h}){

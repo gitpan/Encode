@@ -1,4 +1,4 @@
-# $Id: enc_eucjp.t,v 1.1 2003/01/21 22:19:14 dankogai Exp dankogai $
+# $Id: enc_eucjp.t,v 1.1 2003/01/21 22:19:14 dankogai Exp $
 # This is the twin of enc_utf8.t, the only difference is that
 # this has "use encoding 'euc-jp'".
 

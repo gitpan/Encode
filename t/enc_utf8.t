@@ -1,12 +1,12 @@
-# $Id: enc_utf8.t,v 1.1 2003/01/21 22:19:14 dankogai Exp dankogai $
+# $Id: enc_utf8.t,v 1.2 2003/01/22 03:29:07 dankogai Exp $
 # This is the twin of enc_eucjp.t, the only difference is that
 # this has "use encoding 'utf8'".
 
 BEGIN {
-    if ($] <= 5.008){
-	print "1..0 # Skip: Perl 5.8.1 or later required\n";
-	exit 0;
-    }
+#     if ($] <= 5.008){
+# 	print "1..0 # Skip: Perl 5.8.1 or later required\n";
+# 	exit 0;
+#     }
     require Config; import Config;
     if ($Config{'extensions'} !~ /\bEncode\b/) {
       print "1..0 # Skip: Encode was not built\n";
