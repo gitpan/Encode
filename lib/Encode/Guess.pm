@@ -2,7 +2,7 @@ package Encode::Guess;
 use strict;
 
 use Encode qw(:fallbacks find_encoding);
-our $VERSION = do { my @r = (q$Revision: 1.5 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 1.6 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 
 my $Canon = 'Guess';
 our $DEBUG = 0;
@@ -87,7 +87,7 @@ sub guess {
 	$DEBUG and warn "Added: ", $e->name;
     }
     my $nline = 1;
-    for my $line (split /\r|\n|\r\n/, $octet){
+    for my $line (split /\r\n?|\n/, $octet){
 	# cheat 2 -- \e in the string
 	if ($line =~ /\e/o){
 	    my @keys = keys %try;
@@ -289,6 +289,10 @@ DO NOT PUT TOO MANY SUSPECTS!  Don't you try something like this!
 It is, after all, just a guess.  You should alway be explicit when it
 comes to encodings.  But there are some, especially Japanese,
 environment that guess-coding is a must.  Use this module with care. 
+
+=head1 TO DO
+
+Encode::Guess does not work on EBCDIC platforms.
 
 =head1 SEE ALSO
 
