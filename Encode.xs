@@ -80,7 +80,7 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 	goto ENCODE_END;
     }
 
-    while( (code = do_encode(dir, s, &slen, d, dlen, &dlen, !check)) )
+    while( (code = do_encode(dir, s, &slen, d, dlen, &dlen, !check)) ) 
     {
 	SvCUR_set(dst, dlen+ddone);
 	SvPOK_only(dst);

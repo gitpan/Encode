@@ -1,5 +1,5 @@
 package encoding;
-our $VERSION = do { my @r = (q$Revision: 1.35 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 1.36 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 
 use Encode;
 use strict;
@@ -79,8 +79,8 @@ sub unimport{
 	binmode(STDIN,  ":raw");
 	binmode(STDOUT, ":raw");
     }else{
-	binmode(STDIN);
-	binmode(STDOUT);
+    binmode(STDIN);
+    binmode(STDOUT);
     }
     if ($INC{"Filter/Util/Call.pm"}){
 	eval { filter_del() };
@@ -105,11 +105,6 @@ encoding - allows you to write your script in non-ascii or non-utf8
 
   perl -Mencoding=latin2 -e '...' # Feeling centrally European?
   perl -Mencoding=euc-kr -e '...' # Or Korean?
-
-  # or from the shebang line
-
-  #!/your/path/to/perl -Mencoding="8859-6" # Arabian Nights
-  #!/your/path/to/perl -Mencoding=big5     # Taiwanese
 
   # more control
 
