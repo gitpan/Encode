@@ -1,8 +1,17 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 1.10 2002/03/31 21:32:42 dankogai Exp dankogai $
+# $Id: Changes,v 1.11 2002/03/31 22:12:13 dankogai Exp dankogai $
 #
-1.10  $Date: 2002/03/31 21:32:42 $
+
+1.11  $Date: 2002/03/31 22:12:13 $
++ t/encoding.t
++ t/jperl.t
+! MANIFEST
+  Missing files from the MANIFEST fixed.
+  Message-Id: <20020401010156.H10509@alpha.hut.fi>
+  Version incremented just to make CPAN happy.
+
+1.10  2002/03/31 21:32:42
 ! Makefile.PL
 ! README
   INSTALL_UCM option added to Makefile.PL so you can install *.ucm

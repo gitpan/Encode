@@ -52,12 +52,14 @@ t/Encode.t		Encode extension test
 t/JP.t		Encode extension test
 t/KR.t		Encode extension test
 t/TW.t		Encode extension test
+t/encoding.t	encoding extension test
 t/gb2312.euc	test data
 t/gb2312.ref	test data
 t/jisx0208.euc	test data
 t/jisx0208.ref	test data
 t/jisx0212.euc	test data
 t/jisx0212.ref	test data
+t/jperl.t	encoding extension test
 t/ksc5601.euc	test data
 t/ksc5601.ref	test data
 ucm/8859-1.ucm	Unicode Character Map
