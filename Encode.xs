@@ -7,15 +7,14 @@
 #include "def_t.h"
 
 #define FBCHAR			0xFFFd
+#define FBCHAR_UTF8		"\xEF\xBF\xBD"
 #define BOM_BE			0xFeFF
 #define BOM16LE			0xFFFe
 #define BOM32LE			0xFFFe0000
-
-#define valid_ucs2(x)		((0 <= (x) && (x) < 0xD800) || (0xDFFF < (x) && (x) <= 0xFFFF))
-
 #define issurrogate(x)		(0xD800 <= (x)  && (x) <= 0xDFFF )
 #define isHiSurrogate(x)	(0xD800 <= (x)  && (x) <  0xDC00 )
 #define isLoSurrogate(x)	(0xDC00 <= (x)  && (x) <= 0xDFFF )
+#define invalid_ucs2(x)         ( issurrogate(x) || 0xFFFF < (x) )
 
 static UV
 enc_unpack(pTHX_ U8 **sp,U8 *e,STRLEN size,U8 endian)
@@ -53,7 +52,7 @@ enc_unpack(pTHX_ U8 **sp,U8 *e,STRLEN size,U8 endian)
 void
 enc_pack(pTHX_ SV *result,STRLEN size,U8 endian,UV value)
 {
-    U8 *d = SvGROW(result,SvCUR(result)+size);
+    U8 *d = (U8 *)SvGROW(result,SvCUR(result)+size);
     switch(endian) {
 	case 'v':
 	case 'V':
@@ -636,33 +635,56 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 
 	    case ENCODE_NOREP:
 		if (dir == enc->f_utf8) {
-		    if (!check && ckWARN_d(WARN_UTF8)) {
-			STRLEN clen;
-			UV ch =
-			    utf8n_to_uvuni(s + slen, (SvCUR(src) - slen),
-					   &clen, 0);
-			Perl_warner(aTHX_ packWARN(WARN_UTF8),
-				    "\"\\N{U+%" UVxf
-				    "}\" does not map to %s", ch,
-				    enc->name[0]);
-			/* FIXME: Skip over the character, copy in replacement and continue
-			 * but that is messy so for now just fail.
-			 */
-			return &PL_sv_undef;
+		    STRLEN clen;
+		    UV ch =
+			utf8n_to_uvuni(s + slen, (SvCUR(src) - slen),
+				       &clen, 0);
+		    if (!check) { /* fallback char */
+			sdone += slen + clen;
+		        ddone += dlen + enc->replen; 
+		        sv_catpvn(dst, enc->rep, enc->replen); 
 		    }
-		    else {
-			return &PL_sv_undef;
+                    else if (check == -1){ /* perlqq */
+		        SV* perlqq = 
+			    sv_2mortal(newSVpvf("\\x{%x}", ch));
+  		       sdone += slen + clen;
+		       ddone += dlen + SvLEN(perlqq);
+  		       sv_catsv(dst, perlqq);
+		    }			
+                    else { 
+			  Perl_croak(aTHX_ 
+				     "\"\\N{U+%" UVxf
+				     "}\" does not map to %s", ch,
+					enc->name[0]);
 		    }
+	    }
+	    else {
+		if (!check){  /* fallback char */
+		    sdone += slen + 1;
+		    ddone += dlen + strlen(FBCHAR_UTF8); 
+		    sv_catpv(dst, FBCHAR_UTF8); 
 		}
+                else if (check == -1){ /* perlqq */
+		    SV* perlqq = 
+			    sv_2mortal(newSVpvf("\\x%02X", s[slen]));
+                     sdone += slen + 1;
+		     ddone += dlen + SvLEN(perlqq);
+  		     sv_catsv(dst, perlqq);
+                }
 		else {
-		    /* UTF-8 is supposed to be "Universal" so should not happen
-		       for real characters, but some encodings have non-assigned
-		       codes which may occur.
-		     */
-		    Perl_croak(aTHX_ "%s \"\\x%02X\" does not map to Unicode (%d)",
-			       enc->name[0], (U8) s[slen], code);
+		    /* UTF-8 is supposed to be "Universal" so should not
+		happen for real characters, but some encodings
+		    have non-assigned codes which may occur. */
+			Perl_croak(aTHX_ "%s \"\\x%02X\" "
+					   "does not map to Unicode (%d)",
+					   enc->name[0], (U8) s[slen], code);
 		}
-		break;
+	    }
+	    dlen = SvCUR(dst); 
+	    d   = SvPVX(dst) + dlen; 
+	    s   = SvPVX(src) + sdone; 
+	    slen = tlen - sdone;
+	    break;
 
 	    default:
 		Perl_croak(aTHX_ "Unexpected code %d converting %s %s",
@@ -722,10 +744,10 @@ CODE:
  }
 
 void
-Method_decode(obj,src,check = FALSE)
+Method_decode(obj,src,check = 0)
 SV *	obj
 SV *	src
-bool	check
+int	check
 CODE:
  {
   encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
@@ -735,10 +757,10 @@ CODE:
  }
 
 void
-Method_encode(obj,src,check = FALSE)
+Method_encode(obj,src,check = 0)
 SV *	obj
 SV *	src
-bool	check
+int	check
 CODE:
  {
   encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
@@ -761,8 +783,8 @@ CODE:
     int ucs2    = SvTRUE(*hv_fetch((HV *)SvRV(obj),"ucs2",4,0));
     SV *result = newSVpvn("",0);
     STRLEN ulen;
-    U8 *s = SvPVbyte(str,ulen);
-    U8 *e = SvEND(str);
+    U8 *s = (U8 *)SvPVbyte(str,ulen);
+    U8 *e = (U8 *)SvEND(str);
     ST(0) = sv_2mortal(result);
     SvUTF8_on(result);
 
@@ -790,7 +812,7 @@ CODE:
     while (s < e && s+size <= e) {
 	UV ord = enc_unpack(aTHX_ &s,e,size,endian);
 	U8 *d;
-	if (size != 4 && !valid_ucs2(ord)) {
+       if (size != 4 && invalid_ucs2(ord)) {
 	    if (ucs2) {
 		if (SvTRUE(chk)) {
 		    croak("%s:no surrogates allowed %"UVxf,
@@ -851,8 +873,8 @@ CODE:
     int ucs2   = SvTRUE(*hv_fetch((HV *)SvRV(obj),"ucs2",4,0));
     SV *result = newSVpvn("",0);
     STRLEN ulen;
-    U8 *s = SvPVutf8(utf8,ulen);
-    U8 *e = SvEND(utf8);
+    U8 *s = (U8 *)SvPVutf8(utf8,ulen);
+    U8 *e = (U8 *)SvEND(utf8);
     ST(0) = sv_2mortal(result);
     if (!endian) {
 	endian = (size == 4) ? 'N' : 'n';
@@ -866,7 +888,7 @@ CODE:
 	STRLEN len;
 	UV ord = utf8n_to_uvuni(s, e-s, &len, 0);
         s += len;
-	if (size != 4 && !valid_ucs2(ord)) {
+       if (size != 4 && invalid_ucs2(ord)) {
 	    if (!issurrogate(ord)){
 		if (ucs2) {
 		    if (SvTRUE(chk)) {
@@ -999,9 +1021,9 @@ _utf8_to_bytes(sv, ...)
 	RETVAL
 
 bool
-is_utf8(sv, check = FALSE)
+is_utf8(sv, check = 0)
 SV *	sv
-bool	check
+int	check
       CODE:
 	{
 	  if (SvGMAGICAL(sv)) /* it could be $1, for example */
