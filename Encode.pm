@@ -1,9 +1,9 @@
 #
-# $Id: Encode.pm,v 1.99 2003/12/29 02:47:16 dankogai Exp dankogai $
+# $Id: Encode.pm,v 2.0 2004/05/16 20:55:15 dankogai Exp $
 #
 package Encode;
 use strict;
-our $VERSION = do { my @r = (q$Revision: 1.99 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 2.0 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 sub DEBUG () { 0 }
 use XSLoader ();
 XSLoader::load(__PACKAGE__, $VERSION);
@@ -743,7 +743,7 @@ implementation.  As such, they are efficient but may change.
 If CHECK is true, also checks the data in STRING for being well-formed
 UTF-8.  Returns true if successful, false otherwise.
 
-As of perl 5.8.1, L<utf8> also has utf8::is_utif8().
+As of perl 5.8.1, L<utf8> also has utf8::is_utf8().
 
 =item _utf8_on(STRING)
 
