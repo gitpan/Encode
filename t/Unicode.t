@@ -1,5 +1,5 @@
 #
-# $Id: Unicode.t,v 1.9 2002/05/06 10:26:48 dankogai Exp $
+# $Id: Unicode.t,v 1.12 2003/05/21 08:41:11 dankogai Exp $
 #
 # This script is written entirely in ASCII, even though quoted literals
 # do include non-BMP unicode characters -- Are you happy, jhi?
@@ -18,7 +18,7 @@ BEGIN {
 
 use strict;
 #use Test::More 'no_plan';
-use Test::More tests => 30;
+use Test::More tests => 37;
 use Encode qw(encode decode);
 
 #
@@ -103,6 +103,32 @@ SKIP: {
     }
 };
 
+#
+# CJKT vs. UTF-7
+#
 
+use File::Spec;
+use File::Basename;
+
+my $dir =  dirname(__FILE__);
+opendir my $dh, $dir or die "$dir:$!";
+my @file = sort grep {/\.utf$/o} readdir $dh;
+closedir $dh;
+for my $file (@file){
+    my $path = File::Spec->catfile($dir, $file);
+    open my $fh, '<', $path or die "$path:$!";
+    my $content;
+    if (PerlIO::Layer->find('perlio')){
+	binmode $fh => ':utf8';
+	$content = join('' => <$fh>);
+    }else{ # ugh!
+	binmode $fh;
+	$content = join('' => <$fh>);
+	Encode::_utf8_on($content)
+    }
+    close $fh;
+    is(decode("UTF-7", encode("UTF-7", $content)), $content, 
+       "UTF-7 RT:$file");
+}
 1;
 __END__
