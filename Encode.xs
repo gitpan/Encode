@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.31 2002/04/20 23:43:47 dankogai Exp dankogai $
+ $Id: Encode.xs,v 1.33 2002/04/22 03:43:05 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -8,6 +8,7 @@
 #include "XSUB.h"
 #define U8 U8
 #include "encode.h"
+# define PERLIO_FILENAME "PerlIO/encoding.pm"
 
 /* set 1 or more to profile.  t/encoding.t dumps core because of
    Perl_warner and PerlIO don't work well */
@@ -260,6 +261,32 @@ CODE:
     encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
     sv_utf8_upgrade(src);
     ST(0) = encode_method(aTHX_ enc, enc->f_utf8, src, check);
+    XSRETURN(1);
+}
+
+void
+Method_needs_lines(obj)
+SV *	obj
+CODE:
+{
+    encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
+    ST(0) = &PL_sv_no;
+    XSRETURN(1);
+}
+
+void
+Method_perlio_ok(obj)
+SV *	obj
+CODE:
+{
+    encode_t *enc = INT2PTR(encode_t *, SvIV(SvRV(obj)));
+    if (hv_exists(get_hv("INC", 0), 
+		  PERLIO_FILENAME, strlen(PERLIO_FILENAME)))
+    {
+	ST(0) = &PL_sv_yes;
+    }else{
+	ST(0) = &PL_sv_no;
+    }
     XSRETURN(1);
 }
 
