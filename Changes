@@ -1,9 +1,21 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 2.2 2004/08/31 10:55:34 dankogai Exp dankogai $
+# $Id: Changes,v 2.3 2004/10/06 05:07:20 dankogai Exp dankogai $
 #
 
-$Revision: 2.2 $ $Date: 2004/08/31 10:55:34 $
+$Revision: 2.3 $ $Date: 2004/10/06 05:07:20 $
+  lib/Encode/Alias.pm
+    Resolved some alias case sensitivity glitches reported via RT.
+    http://rt.cpan.org/NoAuth/Bug.html?id=7835
+  bin/piconv
+    Resolved Win32 glitches reported via RT. 
+    (Fixed by dankogai and tested by Steve Hay)
+    http://rt.cpan.org/Ticket/Display.html?id=7831
+  JP/JP.pm lib/Encode/Alias.pm lib/Encode/Supported.pod AUTHORS
+    /\bwindows-31j$/i is now an alias of CP932, by Steve Hay.
+    http://rt.cpan.org/NoAuth/Bug.html?id=6695
+
+2.02 2004/08/31 10:55:34
   ucm/big5-hkscs.ucm AUTHORS t/big5-hkscs.enc t/big5-hkscs.utf
   New map submitted by Deng Liu and Autrijus.  Test data needed
   to be upgrade as well, done by dankogai
