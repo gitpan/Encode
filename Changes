@@ -1,8 +1,19 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 2.6 2004/10/22 06:23:11 dankogai Exp dankogai $
+# $Id: Changes,v 2.7 2004/10/22 19:35:52 dankogai Exp $
 #
-$Revision: 2.6 $ $Date: 2004/10/22 06:23:11 $
+$Revision: 2.7 $ $Date: 2004/10/22 19:35:52 $
+! lib/Encode/Encoding.pm
+  "Remove Carp from warnings.pm" that influences Encode, by Tels.
+  Message-Id: <200410161618.29779@bloodgate.com>
+! Encode.xs AUTHORS t/fallback.t
+  Now Encode::utf8's fallbacks are compliant to Encode standard.
+  Thank Bjoern Hoehrmann for persistently convincing me.
+  Message-Id: <41a61aea.638409494@smtp.bjoern.hoehrmann.de>
+! Encode.pm
+  POD further revised.
+
+2.06 2004/10/22 06:23:11
 ! ucm/mac*
   RT #8083 reports that MacThai mapping was obsolete
   Updated all mac* encodings accordingly to the URI below.
