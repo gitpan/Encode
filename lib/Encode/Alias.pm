@@ -1,7 +1,7 @@
 package Encode::Alias;
 use strict;
 use Encode;
-our $VERSION = do { my @r = (q$Revision: 1.26 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 1.27 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 our $DEBUG = 0;
 require Exporter;
 
@@ -24,6 +24,7 @@ sub find_alias
     local $_ = shift;
     unless (exists $Alias{$_})
     {
+        $Alias{$_} = undef; # Recursion guard
 	for (my $i=0; $i < @Alias; $i += 2)
 	{
 	    my $alias = $Alias[$i];
@@ -243,7 +244,7 @@ __END__
 
 =head1 NAME
 
-Encode::Alias - alias defintions to encodings
+Encode::Alias - alias definitions to encodings
 
 =head1 SYNOPSIS
 
