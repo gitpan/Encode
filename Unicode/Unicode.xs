@@ -1,5 +1,5 @@
 /*
- $Id: Unicode.xs,v 1.6 2003/01/10 12:00:16 dankogai Exp $
+ $Id: Unicode.xs,v 1.7 2003/02/20 14:42:34 dankogai Exp dankogai $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -113,7 +113,7 @@ CODE:
 		endian = 'V';
 	    }
 	    else {
-		croak("%"SVf":Unregognised BOM %"UVxf,
+		croak("%"SVf":Unrecognised BOM %"UVxf,
                       *hv_fetch((HV *)SvRV(obj),"Name",4,0),
 		      bom);
 	    }
