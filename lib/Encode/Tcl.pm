@@ -5,7 +5,7 @@ BEGIN {
     }
 }
 use strict;
-our $VERSION = do { my @r = (q$Revision: 0.92 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+our $VERSION = do { my @r = (q$Revision: 0.94 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 
 use Encode qw(find_encoding);
 use base 'Encode::Encoding';
@@ -125,7 +125,6 @@ sub INC_find
 
 require Encode::Tcl::Table;
 require Encode::Tcl::Escape;
-require Encode::Tcl::Extended;
 
 1;
 __END__
@@ -158,7 +157,5 @@ L<Encode>
 L<Encode::Tcl::Table>
 
 L<Encode::Tcl::Escape>
-
-L<Encode::Tcl::Extended>
 
 =cut
