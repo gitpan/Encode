@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.44 2002/05/02 07:33:09 dankogai Exp $
+ $Id: Encode.xs,v 1.45 2002/05/07 16:22:42 dankogai Exp dankogai $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -172,14 +172,14 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 	    else {
 		if (check & ENCODE_DIE_ON_ERR){
 		    Perl_croak(aTHX_ ERR_DECODE_NOMAP,
-			       (UV)enc->name[0], (U8)s[slen]);
+                              PTR2UV(enc->name[0]), (U8)s[slen]);
 		    return &PL_sv_undef; /* never reaches but be safe */
 		}
 		if (check & ENCODE_WARN_ON_ERR){
 		    Perl_warner(
 			aTHX_ packWARN(WARN_UTF8),
 			ERR_DECODE_NOMAP,
-			(UV)enc->name[0], (U8)s[slen]);
+                       PTR2UV(enc->name[0]), (U8)s[slen]);
 		}
 		if (check & ENCODE_RETURN_ON_ERR){
 		    goto ENCODE_SET_SRC;
