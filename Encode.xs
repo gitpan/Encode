@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 1.49 2002/10/21 19:47:47 dankogai Exp $
+ $Id: Encode.xs,v 1.50 2002/11/08 18:29:27 dankogai Exp $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -241,7 +241,7 @@ encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
 MODULE = Encode		PACKAGE = Encode::utf8	PREFIX = Method_
 
 void
-Method_decode(obj,src,check = 0)
+Method_decode_xs(obj,src,check = 0)
 SV *	obj
 SV *	src
 int	check
@@ -321,7 +321,7 @@ CODE:
 }
 
 void
-Method_encode(obj,src,check = 0)
+Method_encode_xs(obj,src,check = 0)
 SV *	obj
 SV *	src
 int	check
