@@ -1,5 +1,5 @@
 #
-# $Id: Unicode.t,v 1.3 2002/04/07 18:36:26 dankogai Exp $
+# $Id: Unicode.t,v 1.4 2002/04/08 02:35:48 dankogai Exp dankogai $
 #
 # This script is written entirely in ASCII, even though quoted literals
 # do include non-BMP unicode characters -- Are you happy, jhi?
@@ -28,6 +28,7 @@ use strict;
 #use Test::More 'no_plan';
 use Test::More tests => 22;
 use Encode qw(encode decode);
+use Encode::Unicode; # to load BOM defs
 
 #
 # see
