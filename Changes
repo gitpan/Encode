@@ -1,9 +1,16 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 1.84 2003/01/10 12:00:16 dankogai Exp dankogai $
+# $Id: Changes,v 1.85 2003/01/21 22:19:14 dankogai Exp dankogai $
 #
 
-$Revision: 1.84 $ $Date: 2003/01/10 12:00:16 $
+$Revision: 1.85 $ $Date: 2003/01/21 22:19:14 $
+! encoding.pm
+  ${^ENCODING} exception is now explicit rather than handled by regex.
++ t/enc_eucjp.t t/enc_utf8.t
+  Test suite for the better "encoding" pragma support for bleedperl.
+  On 5.8.0, they will just be skipped.
+
+1.84 2003/01/10 12:00:16
 ! encoding.pm
   ${^ENCODING} is no longer set for utf so encoding is no longer fun :)
   (That is to prevent duplicate encoding first by IO then ${^ENCODING})
