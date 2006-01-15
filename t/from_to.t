@@ -1,4 +1,4 @@
-# $Id: from_to.t,v 1.1 2006/01/15 15:06:36 dankogai Exp dankogai $
+# $Id: from_to.t,v 1.1 2006/01/15 15:06:36 dankogai Exp $
 use strict;
 use Test::More tests => 3;
 use Encode qw(encode from_to);

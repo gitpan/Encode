@@ -1,5 +1,5 @@
 /*
- $Id: Encode.xs,v 2.6 2005/09/08 14:17:17 dankogai Exp $
+ $Id: Encode.xs,v 2.7 2006/01/15 15:43:36 dankogai Exp dankogai $
  */
 
 #define PERL_NO_GET_CONTEXT
@@ -89,7 +89,7 @@ do_fallback_cb(pTHX_ UV ch)
 }
 
 static SV *
-encode_method(pTHX_ encode_t * enc, encpage_t * dir, SV * src,
+encode_method(pTHX_ const encode_t * enc, const encpage_t * dir, SV * src,
 	      int check, STRLEN * offset, SV * term, int * retcode)
 {
     STRLEN slen;

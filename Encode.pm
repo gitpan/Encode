@@ -1,9 +1,9 @@
 #
-# $Id: Encode.pm,v 2.13 2006/01/15 15:06:36 dankogai Exp dankogai $
+# $Id: Encode.pm,v 2.14 2006/01/15 15:43:36 dankogai Exp dankogai $
 #
 package Encode;
 use strict;
-our $VERSION = sprintf "%d.%02d", q$Revision: 2.13 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 2.14 $ =~ /(\d+)/g;
 sub DEBUG () { 0 }
 use XSLoader ();
 XSLoader::load(__PACKAGE__, $VERSION);
@@ -825,7 +825,7 @@ goes "liberal"
 
   find_encoding("UTF-8")->name # is 'utf-8-strict'
   find_encoding("utf-8")->name # ditto. names are case insensitive
-  find_encoding("utf8")->name  # ditto. "_" are treated as "-"
+  find_encoding("utf_8")->name  # ditto. "_" are treated as "-"
   find_encoding("UTF8")->name  # is 'utf8'.
 
 
