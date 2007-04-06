@@ -42,6 +42,7 @@ sub init_a2c{
         'hebrew'   => 'iso-8859-8',
         'thai'     => 'iso-8859-11',
         'tis620'   => 'iso-8859-11',
+        'tis-620'   => 'iso-8859-11',
         'WinLatin1'     => 'cp1252',
         'WinLatin2'     => 'cp1250',
         'WinCyrillic'   => 'cp1251',
@@ -122,6 +123,7 @@ use Test::More tests => (scalar keys %a2c) * 4;
 print "# alias test;  \$ON_EBCDIC == $ON_EBCDIC\n";
 
 foreach my $a (keys %a2c){	
+    print "# $a => $a2c{$a}\n";
     my $e = Encode::find_encoding($a);
     is((defined($e) and $e->name), $a2c{$a},$a)
     or warn "alias was $a";;
