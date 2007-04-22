@@ -44,6 +44,7 @@ lib/Encode/CN/HZ.pm		Encode extension
 lib/Encode/Config.pm	        Encode configuration module
 lib/Encode/Encoder.pm	       OO Encoder
 lib/Encode/Encoding.pm	Encode extension
+lib/Encode/GSM0338.pm	Encode extension
 lib/Encode/Guess.pm	Encode Extension
 lib/Encode/JP/H2Z.pm		Encode extension
 lib/Encode/JP/JIS7.pm	Encode extension
@@ -159,7 +160,6 @@ ucm/euc-jp.ucm	Unicode Character Map
 ucm/euc-kr.ucm	Unicode Character Map
 ucm/gb12345.ucm	Unicode Character Map
 ucm/gb2312.ucm	Unicode Character Map
-ucm/gsm0338.ucm	Unicode Character Map
 ucm/hp-roman8.ucm	Unicode Character Map
 ucm/ir-165.ucm	Unicode Character Map
 ucm/jis0201.ucm	Unicode Character Map

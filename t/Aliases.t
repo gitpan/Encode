@@ -142,6 +142,7 @@ define_alias(
 print "# alias test with alias overrides\n";
 
 foreach my $a (keys %a2c){	
+    print "# $a => $a2c{$a}\n";
     my $e = Encode::find_encoding($a);
     is((defined($e) and $e->name), $a2c{$a}, "Override $a")
     or warn "alias was $a";
