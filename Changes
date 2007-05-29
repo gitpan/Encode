@@ -1,9 +1,20 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 2.21 2007/05/12 06:42:19 dankogai Exp dankogai $
+# $Id: Changes,v 2.22 2007/05/29 07:35:27 dankogai Exp dankogai $
 #
+$Revision: 2.22 $ $Date: 2007/05/29 07:35:27 $
+! Encode.pm
+  from_to() does not honor the check while decoding.  That's a feature.
+  To make sure it is a feature it is mentioned in the POD.
+  http://rt.cpan.org/NoAuth/Bug.html?id=#27277
+! Makefile.pl
+  Encode used to suppress man page generation.  Now it does.
+  http://rt.cpan.org/NoAuth/Bug.html?id=#27200
+! Encode.pm Encode.xs t/fallback.t
+  Addressed: (de|en)code("ascii", "\x{3000}", sub{ $_[0] }) segfaults
+  Reported by MIYAGAWA
 
-$Revision: 2.21 $ $Date: 2007/05/12 06:42:19 $
+2.21 2007/05/12 06:42:19
 + lib/Encode/MIME/Name.pm t/mime-name.t
 ! Encode.pm Encode.xs lib/Encode/Encoding.pm
   new method: mime_name()
