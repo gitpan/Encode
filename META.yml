@@ -1,10 +1,10 @@
 --- #YAML:1.0
 name:                Encode
-version:             2.26
+version:             2.27
 abstract:            ~
 license:             ~
 author:              ~
-generated_by:        ExtUtils::MakeMaker version 6.42
+generated_by:        ExtUtils::MakeMaker version 6.44
 distribution_type:   module
 requires:     
 meta-spec:
