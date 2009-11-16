@@ -1,9 +1,9 @@
 #
-# $Id: piconv.t,v 0.2 2009/07/13 00:50:52 dankogai Exp $
+# $Id: piconv.t,v 0.3 2009/11/16 14:08:13 dankogai Exp dankogai $
 #
 
 BEGIN {
-    if ( $ENV{'PERL_CORE'} ) {
+    if ( $ENV{'PERL_CORE'} && $] >= 5.011) {
         print "1..0 # Skip: Don't know how to test this within perl's core\n";
         exit 0;
     }
