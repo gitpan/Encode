@@ -1,10 +1,10 @@
 #
-# $Id: Encode.pm,v 2.53 2013/08/29 15:20:31 dankogai Exp dankogai $
+# $Id: Encode.pm,v 2.54 2013/08/29 16:47:39 dankogai Exp dankogai $
 #
 package Encode;
 use strict;
 use warnings;
-our $VERSION = sprintf "%d.%02d", q$Revision: 2.53 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 2.54 $ =~ /(\d+)/g;
 use constant DEBUG => !!$ENV{PERL_ENCODE_DEBUG};
 use XSLoader ();
 XSLoader::load( __PACKAGE__, $VERSION );
@@ -571,10 +571,9 @@ as a sequence of octets.  Because all possible characters in Perl have a
 
   $string = decode_utf8($octets [, CHECK]);
 
-Similar but not identical to C<$string = decode("utf8", $octets [, CHECK])>.
+Equivalent to C<$string = decode("utf8", $octets [, CHECK])>.
 The sequence of octets represented by $octets is decoded
 from UTF-8 into a sequence of logical characters.
-Returns unaltered $octets value if it already has UTF-8 flag on.
 Because not all sequences of octets are valid UTF-8,
 it is quite possible for this function to fail.
 For CHECK, see L</"Handling Malformed Data">.

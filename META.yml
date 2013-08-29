@@ -20,4 +20,4 @@ no_index:
 requires: {}
 resources:
   repository: https://github.com/dankogai/p5-encode
-version: 2.53
+version: 2.54
