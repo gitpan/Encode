@@ -1,8 +1,16 @@
 # Revision history for Perl extension Encode.
 #
-# $Id: Changes,v 2.55 2013/09/14 07:51:59 dankogai Exp dankogai $
+# $Id: Changes,v 2.57 2014/01/03 04:52:36 dankogai Exp dankogai $
 #
-$Revision: 2.55 $ $Date: 2013/09/14 07:51:59 $
+$Revision: 2.57 $ $Date: 2014/01/03 04:52:36 $
+! encengine.c
+  Pulled: sun compiler (maybe others) doesn't like UTF-8 in the source
+  https://github.com/dankogai/p5-encode/pull/17
+! bin/enc2xs
+  Merged RT#91763: POD errors
+  https://rt.cpan.org/Ticket/Display.html?id=91763
+
+2.56 2013/12/22 13:40:00
 ! Encode.pm t/Encode.t
   Merged RT#91569: [PATCH] decode_utf8 and non-PVs
   https://rt.cpan.org/Ticket/Display.html?id=91569
