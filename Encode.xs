@@ -1,12 +1,11 @@
 /*
- $Id: Encode.xs,v 2.26 2014/04/06 17:23:55 dankogai Exp $
+ $Id: Encode.xs,v 2.27 2014/04/29 16:25:06 dankogai Exp dankogai $
  */
 
 #define PERL_NO_GET_CONTEXT
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
-#define U8 U8
 #include "encode.h"
 
 # define PERLIO_MODNAME  "PerlIO::encoding"
