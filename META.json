@@ -4,7 +4,7 @@
       "unknown"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.142690",
+   "generated_by" : "ExtUtils::MakeMaker version 7.02, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -43,5 +43,5 @@
          "url" : "https://github.com/dankogai/p5-encode"
       }
    },
-   "version" : "2.65"
+   "version" : "2.66"
 }
